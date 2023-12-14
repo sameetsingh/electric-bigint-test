@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS tenants (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  password_hash TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tenant_users (
+  tenant_id UUID NOT NULL REFERENCES tenants ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
+  PRIMARY KEY (tenant_id, user_id)
+);
